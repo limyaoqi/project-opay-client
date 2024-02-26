@@ -1,5 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import TopNav from "@/components/Navbar";
+import ReactQueryProvider from "./ReactQueryProvider.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+import AuthProvider from "./AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +15,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ReactQueryProvider>
+      <AuthProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <TopNav />
+          {children}
+          <ToastContainer />
+        </body>
+      </html>
+      </AuthProvider>
+    </ReactQueryProvider>
   );
 }
